@@ -6,13 +6,23 @@ import {
     AsyncStorage
 } from "react-native";
 import axios from 'axios'
-import { Card, ListItem, Button } from 'react-native-elements'
+import { Card, ListItem, Button, Icon } from 'react-native-elements'
 
 class HomeScreen extends Component {
     constructor(props) {
         super(props)
         this.state = {
             token: '',
+            list: [
+                {
+                    title: 'Appointments',
+                    icon: 'av-timer'
+                },
+                {
+                    title: 'Trips',
+                    icon: 'flight-takeoff'
+                }
+            ],
             feedData: {
                 record_date: "loading...",
                 description: "loading...",
@@ -27,8 +37,8 @@ class HomeScreen extends Component {
 
     async myqueue() {
         const token = await AsyncStorage.getItem("token")
-
-        axios.get('https://immense-tundra-42908.herokuapp.com/api/v1/queue?customer_id=5ba7e72a7949f00015150f03',
+        const id = await AsyncStorage.getItem("id")
+        axios.get('https://immense-tundra-42908.herokuapp.com/api/v1/queue?customer_id='+id,
             { headers: { 'x-access-token': token } })
             .then(response => {
                 const result = response.data
@@ -45,16 +55,20 @@ class HomeScreen extends Component {
     render() {
         return (
             <View>
-                <Card title="นัดหมายของฉัน">
-                    {<ListItem roundAvatar title={'หัวข้อที่นัดหมาย: ' + this.state.feedData.title} />}
-                    {<ListItem roundAvatar title={'หัวข้อที่นัดหมาย: ' + this.state.feedData.description} />}
-                    {<ListItem roundAvatar title={'วันที่หนดหมาย: ' + this.state.feedData.appointment_date[0]} />}
-                    {<ListItem roundAvatar title={'เวลาที่นัดหมาย: ' + this.state.feedData.appointment_date[1]} />}
-                    {<ListItem roundAvatar title={'หมายเลขคิวที่: ' + this.state.feedData.queue_order} />}
-                </Card>
+                    {<ListItem roundAvatar title={'หัวข้อที่นัดหมาย: ' + this.state.feedData.title} leftIcon={{ name: 'title' }} />}
+                    <View style={{ borderBottomColor: 'silver', borderBottomWidth: 0.5, }} />
+                    {<ListItem roundAvatar title={'รายละเอียด: ' + this.state.feedData.description} leftIcon={{ name: 'description' }} />}
+                    <View style={{ borderBottomColor: 'silver', borderBottomWidth: 0.5, }} />
+                    {<ListItem roundAvatar title={'วันที่หนดหมาย: ' + this.state.feedData.appointment_date[0]} leftIcon={{ name: 'date-range' }} />}
+                    <View style={{ borderBottomColor: 'silver', borderBottomWidth: 0.5, }} />
+                    {<ListItem roundAvatar title={'เวลาที่นัดหมาย: ' + this.state.feedData.appointment_date[1]} leftIcon={{ name: 'update' }} />}
+                    <View style={{ borderBottomColor: 'silver', borderBottomWidth: 0.5, }} />
+                    {<ListItem roundAvatar title={'หมายเลขคิวที่: ' + this.state.feedData.queue_order} leftIcon={{ name: 'queue' }} />}
+                    <View style={{ borderBottomColor: 'silver', borderBottomWidth: 0.5, }} />
+                
+
             </View>
         );
-
     }
 }
 export default HomeScreen;

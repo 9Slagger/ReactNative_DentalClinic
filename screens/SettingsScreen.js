@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { View, Text, Image, AsyncStorage, Alert, StyleSheet, TouchableHighlight, FlatList,ScrollView } from 'react-native';
+import { View, Text, Image, AsyncStorage, Alert, StyleSheet, TouchableHighlight, FlatList, ScrollView } from 'react-native';
 import { Card, ListItem, Button } from 'react-native-elements'
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import axios from 'axios'
@@ -59,16 +59,22 @@ class SettingsScreen extends Component {
         return (
             <ScrollView >
 
-                <Card title="My Profile">
                     {<ListItem roundAvatar title={'Account: ' + this.state.feedData.username} />}
+                    <View style={{ borderBottomColor: 'silver', borderBottomWidth: 0.5, }} />
                     {<ListItem roundAvatar title={'Firstname: ' + this.state.feedData.firstname} />}
+                    <View style={{ borderBottomColor: 'silver', borderBottomWidth: 0.5, }} />
                     {<ListItem roundAvatar title={'Lastname: ' + this.state.feedData.lastname} />}
+                    <View style={{ borderBottomColor: 'silver', borderBottomWidth: 0.5, }} />
                     {<ListItem roundAvatar title={'Phone: ' + this.state.feedData.phone} />}
+                    <View style={{ borderBottomColor: 'silver', borderBottomWidth: 0.5, }} />
                     {<ListItem roundAvatar title={'Address: ' + this.state.feedData.address} />}
+                    <View style={{ borderBottomColor: 'silver', borderBottomWidth: 0.5, }} />
                     {<ListItem roundAvatar title={'Allergy: ' + this.state.feedData.allergy_history} />}
+                    <View style={{ borderBottomColor: 'silver', borderBottomWidth: 0.5, }} />
                     {<ListItem roundAvatar title={'Birthday: ' + this.state.feedData.birthday[0]} />}
+                    <View style={{ borderBottomColor: 'silver', borderBottomWidth: 0.5, }} />
                     {<ListItem roundAvatar title={'Join Date: ' + this.state.feedData.record_date[0]} />}
-                </Card>
+                    <View style={{ borderBottomColor: 'silver', borderBottomWidth: 0.5, }} />
 
                 <TouchableHighlight
                     onPress={() => this.signOut()}

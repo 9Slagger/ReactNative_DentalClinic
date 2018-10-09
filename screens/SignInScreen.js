@@ -50,6 +50,7 @@ class SignInScreen extends Component {
 
                     // save token
                     await AsyncStorage.setItem("token", result.token)
+                    await AsyncStorage.setItem("id", result.id)
 
                     // show successful alert
                     Alert.alert("Login Successful", "",
