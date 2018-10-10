@@ -27,6 +27,7 @@ import SignInScreen from './screens/SignInScreen'
 import SignUpScreen from './screens/SignUpScreen'
 import HomeScreen from './screens/HomeScreen'
 import SettingsScreen from './screens/SettingsScreen'
+import ScanQRcodeScreen from './screens/ScanQRcodeScreen'
 
 const AuthStackNavigator = createStackNavigator({
   SignIn: SignInScreen,
@@ -43,6 +44,15 @@ const AppTabNavigator = createBottomTabNavigator({
       )
     }
   },
+  ScanQRcode: {
+    screen: ScanQRcodeScreen,
+    navigationOptions: {
+      tabBarLabel: 'SCANQRCODE',
+      tabBarIcon: () => (
+        <Icon name="camera" size={24} color="#3079DD" />
+      )
+    }
+  },
   Settings: {
     screen: SettingsScreen,
     navigationOptions: {
@@ -51,7 +61,6 @@ const AppTabNavigator = createBottomTabNavigator({
         <Icon name="settings" size={24} color="#3079DD" />
       )
     }
-
   }
 })
 
