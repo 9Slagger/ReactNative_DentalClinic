@@ -59,21 +59,19 @@ class SettingsScreen extends Component {
         return (
             <ScrollView >
 
-                    {<ListItem roundAvatar title={'Account: ' + this.state.feedData.username} />}
+                    {<ListItem roundAvatar title={'แอเคาท์: ' + this.state.feedData.username} leftIcon={{ name: 'accessibility' }} />}
                     <View style={{ borderBottomColor: 'silver', borderBottomWidth: 0.5, }} />
-                    {<ListItem roundAvatar title={'Firstname: ' + this.state.feedData.firstname} />}
+                    {<ListItem roundAvatar title={'ชื่อ: ' + this.state.feedData.firstname +' '+ this.state.feedData.lastname} leftIcon={{ name: 'person' }} />}
                     <View style={{ borderBottomColor: 'silver', borderBottomWidth: 0.5, }} />
-                    {<ListItem roundAvatar title={'Lastname: ' + this.state.feedData.lastname} />}
+                    {<ListItem roundAvatar title={'เบอร์: ' + this.state.feedData.phone} leftIcon={{ name: 'phone' }} />}
                     <View style={{ borderBottomColor: 'silver', borderBottomWidth: 0.5, }} />
-                    {<ListItem roundAvatar title={'Phone: ' + this.state.feedData.phone} />}
+                    {<ListItem roundAvatar title={'ที่อยู่: ' + this.state.feedData.address} leftIcon={{ name: 'business' }} />}
                     <View style={{ borderBottomColor: 'silver', borderBottomWidth: 0.5, }} />
-                    {<ListItem roundAvatar title={'Address: ' + this.state.feedData.address} />}
+                    {<ListItem roundAvatar title={'แพ้ยา: ' + this.state.feedData.allergy_history} leftIcon={{ name: 'history' }} />}
                     <View style={{ borderBottomColor: 'silver', borderBottomWidth: 0.5, }} />
-                    {<ListItem roundAvatar title={'Allergy: ' + this.state.feedData.allergy_history} />}
+                    {<ListItem roundAvatar title={'วันเกิด: ' + this.state.feedData.birthday[0]} leftIcon={{ name: 'today' }} />}
                     <View style={{ borderBottomColor: 'silver', borderBottomWidth: 0.5, }} />
-                    {<ListItem roundAvatar title={'Birthday: ' + this.state.feedData.birthday[0]} />}
-                    <View style={{ borderBottomColor: 'silver', borderBottomWidth: 0.5, }} />
-                    {<ListItem roundAvatar title={'Join Date: ' + this.state.feedData.record_date[0]} />}
+                    {<ListItem roundAvatar title={'เป็นสมาชื่อเมื่อ: ' + this.state.feedData.record_date[0]} leftIcon={{ name: 'today' }} />}
                     <View style={{ borderBottomColor: 'silver', borderBottomWidth: 0.5, }} />
 
                 <TouchableHighlight

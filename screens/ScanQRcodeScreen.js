@@ -19,13 +19,13 @@ export default class ScanQRcodeScreen extends Component {
             'Alert Title',
             e.data,
             [
-                { text: 'Close', onPress: () => this.receiveQueue() , style: 'cancel' },
+                { text: 'Close', onPress: () => this.receiveQ() , style: 'cancel' },
             ],
             { cancelable: false }
         )
     }
 
-    async receiveQueue() {
+    async receiveQ() {
         // const { username, password } = this.state
         const data = { id: ""}
         axios.post('https://immense-tundra-42908.herokuapp.com/api/v1/customer/login', data)
@@ -58,13 +58,13 @@ export default class ScanQRcodeScreen extends Component {
                 ref={(node) => { this.scanner = node }}
                 onRead={this.onSuccess.bind(this)}
                 topContent={
-                    <Text style={styles.centerText}>
-                        Go to <Text style={styles.textBold}>wikipedia.org/wiki/QR_code</Text> on your computer and scan the QR code.
-          </Text>
+                    <Text style={styles.centerText}><Text style={styles.textBold}>
+                    สแกน QR Code ที่จอ Monitor เพื่อรับคิว!
+                    </Text></Text>
                 }
                 bottomContent={
                     <TouchableOpacity style={styles.buttonTouchable} onPress={this.scan}>
-                        <Text style={styles.buttonText}>re scan</Text>
+                        <Text style={styles.buttonText}>สแกนซ้ำ</Text>
                     </TouchableOpacity>
                 }
             />

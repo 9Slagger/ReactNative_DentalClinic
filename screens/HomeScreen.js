@@ -3,7 +3,9 @@ import {
     View,
     Text,
     StyleSheet,
-    AsyncStorage
+    AsyncStorage,
+    TouchableHighlight,
+    ScrollView
 } from "react-native";
 import axios from 'axios'
 import { Card, ListItem, Button, Icon } from 'react-native-elements'
@@ -12,6 +14,7 @@ class HomeScreen extends Component {
     constructor(props) {
         super(props)
         this.state = {
+            queue: [],
             token: '',
             list: [
                 {
@@ -30,45 +33,69 @@ class HomeScreen extends Component {
                 appointment_date: "loading...",
             }
         }
+        // this.ReservationQueue()
     }
     componentDidMount() {
-        this.myqueue()
+        this.ReservationQueue()
     }
 
-    async myqueue() {
-        const token = await AsyncStorage.getItem("token")
+    async ReservationQueue() {
+        console.log("ReservationQueue Hello")
         const id = await AsyncStorage.getItem("id")
-        axios.get('https://immense-tundra-42908.herokuapp.com/api/v1/queue?customer_id='+id,
-            { headers: { 'x-access-token': token } })
-            .then(response => {
-                const result = response.data
-                result[0].appointment_date = result[0].appointment_date.split("T");
-                this.setState({ feedData: result[0] })
-                console.log(this.state.feedData)
+        axios.get(`https://immense-tundra-42908.herokuapp.com/api/v1/queue?customer_id=${id}&status=appointment`)
+            .then(res => {
+                if (res.status === 200) {
+                    this.setState({ queue: res.data })
+                    console.log(this.state.queue)
+                }
+                else {
+                    console.log("Not Found Queue")
+                }
             })
-            .catch(error => {
-                Alert.alert(JSON.stringify(error))
-                console.log(error);
-            });
+            .catch((error) => {
+                console.log(error)
+            })
+    }
+
+    async receiveQueue(queue_id) {
+        console.log("Hello")
+    }
+
+    lists(queue) {
+        var temp = queue.map(data => (
+            <View key={data._id} >
+            <Card title="รายการนัดหมาย">
+                {<ListItem roundAvatar title={'แพทย์: ' + data.doctor.name +' '+ data.doctor.lastname} leftIcon={{ name: 'person' }} />}
+                <View style={{ borderBottomColor: 'silver', borderBottomWidth: 0.5, }} />
+                {<ListItem roundAvatar title={'วันพบแพทย์: ' + data.appointment_date} leftIcon={{ name: 'alarm' }} />}
+                <View style={{ borderBottomColor: 'silver', borderBottomWidth: 0.5, }} />
+                {<ListItem roundAvatar title={'หัวข้อ: ' + data.title} leftIcon={{ name: 'title' }} />}
+                <View style={{ borderBottomColor: 'silver', borderBottomWidth: 0.5, }} />
+                {<ListItem roundAvatar title={'รายละเอียด: ' + data.description} leftIcon={{ name: 'pageview' }} />}
+                <TouchableHighlight
+                    onPress={() => this.receiveQueue(data._id)}
+                    style={{
+                        height: 50,
+                        backgroundColor: '#00C4F5',
+                        alignSelf: 'stretch',
+                        borderRadius: 10,
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                    }}>
+                    <Text style={{ fontSize: 18, color: '#0007', alignSelf: 'center' }}>ScanQR Code เพื่อรับคิว</Text>
+                </TouchableHighlight>
+                </Card>
+            </View>
+        ))
+        return temp
     }
 
     render() {
         return (
-            <View>
-                    {<ListItem roundAvatar title={'หัวข้อที่นัดหมาย: ' + this.state.feedData.title} leftIcon={{ name: 'title' }} />}
-                    <View style={{ borderBottomColor: 'silver', borderBottomWidth: 0.5, }} />
-                    {<ListItem roundAvatar title={'รายละเอียด: ' + this.state.feedData.description} leftIcon={{ name: 'description' }} />}
-                    <View style={{ borderBottomColor: 'silver', borderBottomWidth: 0.5, }} />
-                    {<ListItem roundAvatar title={'วันที่หนดหมาย: ' + this.state.feedData.appointment_date[0]} leftIcon={{ name: 'date-range' }} />}
-                    <View style={{ borderBottomColor: 'silver', borderBottomWidth: 0.5, }} />
-                    {<ListItem roundAvatar title={'เวลาที่นัดหมาย: ' + this.state.feedData.appointment_date[1]} leftIcon={{ name: 'update' }} />}
-                    <View style={{ borderBottomColor: 'silver', borderBottomWidth: 0.5, }} />
-                    {<ListItem roundAvatar title={'หมายเลขคิวที่: ' + this.state.feedData.queue_order} leftIcon={{ name: 'queue' }} />}
-                    <View style={{ borderBottomColor: 'silver', borderBottomWidth: 0.5, }} />
-                
-
-            </View>
-        );
+            <ScrollView>
+                <View>{this.lists(this.state.queue)}</View>
+            </ScrollView>
+        )
     }
 }
 export default HomeScreen;
