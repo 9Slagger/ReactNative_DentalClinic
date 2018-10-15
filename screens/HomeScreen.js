@@ -64,26 +64,26 @@ class HomeScreen extends Component {
     lists(queue) {
         var temp = queue.map(data => (
             <View key={data._id} >
-            <Card title="รายการนัดหมาย">
-                {<ListItem roundAvatar title={'แพทย์: ' + data.doctor.name +' '+ data.doctor.lastname} leftIcon={{ name: 'person' }} />}
-                <View style={{ borderBottomColor: 'silver', borderBottomWidth: 0.5, }} />
-                {<ListItem roundAvatar title={'วันพบแพทย์: ' + data.appointment_date} leftIcon={{ name: 'alarm' }} />}
-                <View style={{ borderBottomColor: 'silver', borderBottomWidth: 0.5, }} />
-                {<ListItem roundAvatar title={'หัวข้อ: ' + data.title} leftIcon={{ name: 'title' }} />}
-                <View style={{ borderBottomColor: 'silver', borderBottomWidth: 0.5, }} />
-                {<ListItem roundAvatar title={'รายละเอียด: ' + data.description} leftIcon={{ name: 'pageview' }} />}
-                <TouchableHighlight
-                    onPress={() => this.receiveQueue(data._id)}
-                    style={{
-                        height: 50,
-                        backgroundColor: '#00C4F5',
-                        alignSelf: 'stretch',
-                        borderRadius: 10,
-                        justifyContent: 'center',
-                        alignItems: 'center',
-                    }}>
-                    <Text style={{ fontSize: 18, color: '#0007', alignSelf: 'center' }}>ScanQR Code เพื่อรับคิว</Text>
-                </TouchableHighlight>
+                <Card title="รายการนัดหมาย">
+                    {<ListItem roundAvatar title={'แพทย์: ' + data.doctor.name + ' ' + data.doctor.lastname} leftIcon={{ name: 'person' }} />}
+                    <View style={{ borderBottomColor: 'silver', borderBottomWidth: 0.5, }} />
+                    {<ListItem roundAvatar title={'วันพบแพทย์: ' + data.appointment_date} leftIcon={{ name: 'alarm' }} />}
+                    <View style={{ borderBottomColor: 'silver', borderBottomWidth: 0.5, }} />
+                    {<ListItem roundAvatar title={'หัวข้อ: ' + data.title} leftIcon={{ name: 'title' }} />}
+                    <View style={{ borderBottomColor: 'silver', borderBottomWidth: 0.5, }} />
+                    {<ListItem roundAvatar title={'รายละเอียด: ' + data.description} leftIcon={{ name: 'pageview' }} />}
+                    <TouchableHighlight
+                        onPress={() => this.receiveQueue(data._id)}
+                        style={{
+                            height: 50,
+                            backgroundColor: '#00C4F5',
+                            alignSelf: 'stretch',
+                            borderRadius: 10,
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                        }}>
+                        <Text style={{ fontSize: 18, color: '#0007', alignSelf: 'center' }}>ScanQR Code เพื่อรับคิว</Text>
+                    </TouchableHighlight>
                 </Card>
             </View>
         ))
@@ -94,6 +94,10 @@ class HomeScreen extends Component {
         return (
             <ScrollView>
                 <View>{this.lists(this.state.queue)}</View>
+                <Button
+                    title="Go to ScanQRcode"
+                    onPress={() => this.props.navigation.navigate('ScanQRcode')}
+                />
             </ScrollView>
         )
     }
