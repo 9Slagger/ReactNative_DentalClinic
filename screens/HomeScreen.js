@@ -11,6 +11,10 @@ import axios from 'axios'
 import { Card, ListItem, Button, Icon } from 'react-native-elements'
 
 class HomeScreen extends Component {
+    static navigationOptions = {
+        title :"Home"
+    }
+
     constructor(props) {
         super(props)
         this.state = {

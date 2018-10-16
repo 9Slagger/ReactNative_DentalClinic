@@ -14,6 +14,10 @@ import {
 import QRCodeScanner from 'react-native-qrcode-scanner';
 
 export default class ScanQRcodeScreen extends Component {
+    static navigationOptions = {
+        title :"Scan QR"
+    }
+
     onSuccess(e) {
         Alert.alert(
             'Alert Title',

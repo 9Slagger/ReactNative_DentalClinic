@@ -5,6 +5,10 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import axios from 'axios'
 
 class SettingsScreen extends Component {
+    static navigationOptions = {
+        title :"Setting"
+    }
+
     constructor(props) {
         super(props)
         this.state = {

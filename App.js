@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { AsyncStorage } from 'react-native';
 import SettingsScreen from './screens/SettingsScreen';
 import SignInScreen from './screens/SignInScreen';
 import SignUpScreen from './screens/SignUpScreen';
@@ -19,10 +18,14 @@ var HomeStack = createStackNavigator({
   ScanQRcode: {screen: ScanQRcodeScreen},
 }, { initialRouteName: 'Home' })
 
+var SettingStack = createStackNavigator({
+  Setting: { screen: SettingsScreen },
+}, { initialRouteName: 'Setting' })
+
 const TabNavigator = createBottomTabNavigator(
   {
     Home: { screen: HomeStack },
-    Setting: { screen: SettingsScreen },
+    Setting: { screen: SettingStack },
   },
   {
     navigationOptions: ({ navigation }) => ({
