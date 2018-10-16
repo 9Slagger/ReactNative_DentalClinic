@@ -5,9 +5,11 @@ import axios from 'axios'
 import {
     AppRegistry,
     Alert,
+    AsyncStorage,
     StyleSheet,
     Text,
     TouchableOpacity,
+    TouchableHighlight,
     Linking
 } from 'react-native';
 
@@ -32,14 +34,14 @@ export default class ScanQRcodeScreen extends Component {
 
     async receiveQ() {
         const token = await AsyncStorage.getItem("token")
-        const data = { id: "5bc4799d63986600150f876c" }
+        const data = { "id": "5bc4799d63986600150f876c" }
         axios.post('https://immense-tundra-42908.herokuapp.com/api/v1/queue/active', data, { headers: { 'x-access-token': token } })
-            .then(async response => {
+            .then(response => {
                 const result = response.data
-                Alert.alert(result.status)
+                Alert.alert(response)
             })
             .catch(error => {
-                console.log(error);
+                Alert.alert("catch")
             });
     }
 
