@@ -139,7 +139,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center'
     },
     banner: {
-        height: 180,
+        height: 200,
         width: '100%'
     },
     input: {

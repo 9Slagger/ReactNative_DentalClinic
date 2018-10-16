@@ -15,36 +15,28 @@ import QRCodeScanner from 'react-native-qrcode-scanner';
 
 export default class ScanQRcodeScreen extends Component {
     static navigationOptions = {
-        title :"Scan QR"
+        title: "Scan QR"
     }
 
     onSuccess(e) {
-        Alert.alert(
-            'Alert Title',
-            e.data,
-            [
-                { text: 'Close', onPress: () => this.receiveQ() , style: 'cancel' },
-            ],
-            { cancelable: false }
-        )
+        this.receiveQ()
+        // Alert.alert(
+        //     'Alert Title',
+        //     e.data,
+        //     [
+        //         { text: 'Close', onPress: () => this.receiveQ(), style: 'cancel' },
+        //     ],
+        //     { cancelable: false }
+        // )
     }
 
     async receiveQ() {
-        // const { username, password } = this.state
-        const data = { id: ""}
-        axios.post('https://immense-tundra-42908.herokuapp.com/api/v1/customer/login', data)
+        const token = await AsyncStorage.getItem("token")
+        const data = { id: "5bc4799d63986600150f876c" }
+        axios.post('https://immense-tundra-42908.herokuapp.com/api/v1/queue/active', data, { headers: { 'x-access-token': token } })
             .then(async response => {
                 const result = response.data
-                if (result.result == "Customer Login success") {
-
-                    // show successful alert
-                    Alert.alert("รับ Queue สำเร็จ!", "",
-                        [
-                            { text: 'OK', onPress: () => console.log('Cancel Pressed'), style: 'OK Pressed' },
-                        ])
-                } else {
-                    Alert.alert("รับ Queue ล้มเหลว!")
-                }
+                Alert.alert(result.status)
             })
             .catch(error => {
                 console.log(error);
@@ -63,7 +55,7 @@ export default class ScanQRcodeScreen extends Component {
                 onRead={this.onSuccess.bind(this)}
                 topContent={
                     <Text style={styles.centerText}><Text style={styles.textBold}>
-                    สแกน QR Code ที่จอ Monitor เพื่อรับคิว!
+                        สแกน QR Code ที่จอ Monitor เพื่อรับคิว!
                     </Text></Text>
                 }
                 bottomContent={
