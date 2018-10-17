@@ -40,7 +40,7 @@ export default class ScanQRcodeScreen extends Component {
         axios.put('https://immense-tundra-42908.herokuapp.com/api/v1/queue/booking', data, { headers: { 'x-access-token': token } })
             .then(response => {
                 const result = response.data
-                Alert.alert("รับคิวสำเร็จ หมายเลขคิวของคุณคือ "+"-"+result.priority+result.queue_order) //เหลือใส่หมายเลขห้องหน้า-
+                Alert.alert("รับคิวสำเร็จ หมายเลขคิวของคุณคือ "+result.room_usage.room_name+"-"+result.priority+result.queue_order) //เหลือใส่หมายเลขห้องหน้า-
             })
             .catch(error => {
                 Alert.alert("catch")
