@@ -18,24 +18,9 @@ class HomeScreen extends Component {
     constructor(props) {
         super(props)
         this.state = {
+            test: {username:'abc1',password:'cba1'},
             queue: [],
-            token: '',
-            list: [
-                {
-                    title: 'Appointments',
-                    icon: 'av-timer'
-                },
-                {
-                    title: 'Trips',
-                    icon: 'flight-takeoff'
-                }
-            ],
-            feedData: {
-                record_date: "loading...",
-                description: "loading...",
-                title: "loading...",
-                appointment_date: "loading...",
-            }
+            token: ''
         }
         // this.ReservationQueue()
     }
@@ -62,7 +47,11 @@ class HomeScreen extends Component {
     }
 
     async receiveQueue(queue_id) {
-        console.log("Hello")
+        let data = {
+            indata: {id: queue_id}
+        }
+        console.log(data)
+        this.props.navigation.navigate('ScanQRcode',data)
     }
 
     lists(queue) {
@@ -98,10 +87,10 @@ class HomeScreen extends Component {
         return (
             <ScrollView>
                 <View>{this.lists(this.state.queue)}</View>
-                <Button
+                {/* <Button
                     title="Go to ScanQRcode"
-                    onPress={() => this.props.navigation.navigate('ScanQRcode')}
-                />
+                    onPress={() => this.props.navigation.navigate('ScanQRcode',this.state)}
+                /> */}
             </ScrollView>
         )
     }

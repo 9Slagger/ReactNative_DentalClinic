@@ -34,11 +34,13 @@ export default class ScanQRcodeScreen extends Component {
 
     async receiveQ() {
         const token = await AsyncStorage.getItem("token")
-        const data = { "id": "5bc4799d63986600150f876c" }
-        axios.post('https://immense-tundra-42908.herokuapp.com/api/v1/queue/active', data, { headers: { 'x-access-token': token } })
+        var params = this.props.navigation.getParam("indata")
+        const { id } = params
+        const data = { "id": id }
+        axios.put('https://immense-tundra-42908.herokuapp.com/api/v1/queue/booking', data, { headers: { 'x-access-token': token } })
             .then(response => {
                 const result = response.data
-                Alert.alert(response)
+                Alert.alert("รับคิวสำเร็จ หมายเลขคิวของคุณคือ "+"-"+result.priority+result.queue_order) //เหลือใส่หมายเลขห้องหน้า-
             })
             .catch(error => {
                 Alert.alert("catch")
