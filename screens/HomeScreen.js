@@ -8,6 +8,7 @@ import {
     TouchableOpacity,
     ScrollView,
     Image,
+    ImageBackground
 } from "react-native";
 import axios from 'axios'
 import { Card, ListItem, Button, Icon } from 'react-native-elements'
@@ -26,69 +27,113 @@ class HomeScreen extends Component {
         }
     }
 
-    button1 = () => {
-        return (
-            <View style={{justifyContent: 'center'}}>
-                <TouchableOpacity onPress={() => this.navigateMyQueueScreen()} style={styles.btn}>
-                    <View style={styles.absoluteView}>
-                        {/* <Text>title</Text> */}
-                    </View>
-                    <Image source={require('./imgs/Icon.png')} style={styles.img} />
-                </TouchableOpacity>
-                <Text style={styles.textBanner}>My Queue</Text>
-            </View>
-        )
-    }
-
     navigateMyQueueScreen() {
-        this.props.navigation.navigate('MyQueue')
+        this.props.navigation.navigate('GetQueue')
     }
 
     render() {
         return (
-            <ScrollView>
-                <View style={{ flex: 1, flexDirection: 'row' }}>
-                    <View style={{ flex: 0.5,backgroundColor:'red'}}>
-                        {this.button1()}
+            <ImageBackground source={require('./imgs/dental.jpg')} style={{backgroundColor: '#FFFFFF',width: '100%', height: '40%', flex: 1, flexDirection: 'column', }}>
+
+                <View style={{ flex: 0.4 }}></View>
+                <View style={{ flex: 0.6 }}>
+                    <View style={{ flex: 0.5, flexDirection: 'row' }}>
+                        <View style={{ flex: 0.5 }}>
+
+                            <View style={styles.viewTouchable}>
+                                <TouchableOpacity style={styles.touchable} onPress={() => this.navigateMyQueueScreen()}>
+                                    <View style={styles.view}>
+                                    </View>
+                                    <Image
+                                        source={require('./imgs/Icon.png')}
+                                        style={styles.image} />
+                                </TouchableOpacity>
+                                <Text style={styles.textTouchable}>รับคิว</Text>
+                            </View>
+
+                        </View>
+                        <View style={{ flex: 0.5 }}>
+
+                            <View style={styles.viewTouchable}>
+                                <TouchableOpacity style={styles.touchable} onPress={() => this.navigateMyQueueScreen()}>
+                                    <View style={styles.view}>
+                                    </View>
+                                    <Image
+                                        source={require('./imgs/Icon.png')}
+                                        style={styles.image} />
+                                </TouchableOpacity>
+                                <Text style={styles.textTouchable}>MyQueue</Text>
+                            </View>
+
+                        </View>
                     </View>
-                    <View style={{ flex: 0.5 }}>
-                        {this.button1()}
+                    <View style={{ flex: 0.5, flexDirection: 'row' }}>
+                        <View style={{ flex: 0.5 }}>
+
+                            <View style={styles.viewTouchable}>
+                                <TouchableOpacity style={styles.touchable} onPress={() => this.navigateMyQueueScreen()}>
+                                    <View style={styles.view}>
+                                    </View>
+                                    <Image
+                                        source={require('./imgs/Icon.png')}
+                                        style={styles.image} />
+                                </TouchableOpacity>
+                                <Text style={styles.textTouchable}>MyQueue</Text>
+                            </View>
+
+                        </View>
+                        <View style={{ flex: 0.5 }}>
+
+                            <View style={styles.viewTouchable}>
+                                <TouchableOpacity style={styles.touchable} onPress={() => this.navigateMyQueueScreen()}>
+                                    <View style={styles.view}>
+                                    </View>
+                                    <Image
+                                        source={require('./imgs/Icon.png')}
+                                        style={styles.image} />
+                                </TouchableOpacity>
+                                <Text style={styles.textTouchable}>MyQueue</Text>
+                            </View>
+
+                        </View>
                     </View>
+
                 </View>
-                <View style={{ flex: 1, flexDirection: 'row' }}>
-                    <View style={{ flex: 0.5 }}>
-                        {this.button1()}
-                    </View>
-                    <View style={{ flex: 0.5 }}>
-                        {this.button1()}
-                    </View>
-                </View>
-            </ScrollView>
+
+                {/* <View style={{ flex: 0.2 }}></View> */}
+            </ImageBackground>
         )
     }
 }
 export default HomeScreen;
 
 const styles = StyleSheet.create({
-    banner: {
+    view: {
+        position: 'absolute',
+        backgroundColor: 'transparent'
+    },
+    image: {
+        height: '100%',
+        width: '100%',
+    },
+    viewTouchable: {
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    textTouchable: {
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginTop: 10,
+        fontSize: 20
+    },
+    touchable: {
+        alignItems: 'center',
+        justifyContent: 'center',
         height: 100,
         width: 100,
     },
-    textBanner: {
-        fontSize: 29,
-        justifyContent: 'center'
-    },
-    absoluteView: {
-        flex: 1,
-        position: 'absolute',
-        alignItems: 'center',
-        justifyContent: 'center',
-        backgroundColor: 'transparent'
-    },
-    img: {
-        justifyContent: 'center'
-    },
-    btn: {
-        justifyContent: 'center'
+    text: {
+        fontSize: 18,
+        textAlign: 'center'
     }
 });

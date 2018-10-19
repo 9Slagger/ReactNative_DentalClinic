@@ -11,7 +11,7 @@ import {
 import axios from 'axios'
 import { Card, ListItem, Button, Icon } from 'react-native-elements'
 
-class MyQueueScreen extends Component {
+class GetQueueScreen extends Component {
     static navigationOptions = {
         title: "MyQueueScreen"
     }
@@ -101,7 +101,7 @@ class MyQueueScreen extends Component {
         }
     }
 }
-export default MyQueueScreen;
+export default GetQueueScreen;
 
 const styles = StyleSheet.create({
     banner: {
