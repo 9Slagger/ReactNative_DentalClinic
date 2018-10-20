@@ -62,7 +62,7 @@ class HomeScreen extends Component {
                                     {/* <Image
                                         source={require('./imgs/Icon.png')}
                                         style={styles.image} /> */}
-                                    <Icon name='airplay' size={50} color='#AAFFAA' />
+                                    <Icon name='airplay' size={50} color='#AAFAAA' />
                                 </TouchableOpacity>
                                 <Text style={styles.textTouchable}>ติดตามคิว</Text>
                             </View>
