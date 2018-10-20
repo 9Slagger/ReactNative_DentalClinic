@@ -13,7 +13,7 @@ import { Card, ListItem, Button, Icon } from 'react-native-elements'
 
 class GetQueueScreen extends Component {
     static navigationOptions = {
-        title: "MyQueueScreen"
+        title: "GetQueue"
     }
 
     constructor(props) {
@@ -85,17 +85,17 @@ class GetQueueScreen extends Component {
     }
 
     render() {
-        if (this.state.queue) {
+        if (this.state.queue.length > 0) {
             return (
-                <ScrollView>
+                <ScrollView style={{ backgroundColor: '#F5F5F5' }}>
                     <View>{this.lists(this.state.queue)}</View>
                 </ScrollView>
             )
         }
         else {
             return (
-                <ScrollView>
-                    <Text>คุณไม่มีคิวที่นัดหมายไว้</Text>
+                <ScrollView style={{flex:1, backgroundColor: '#F5F5F5' }}>
+                    <Text style={{flex:1}}>คุณไม่มีคิวที่นัดหมายไว้</Text>
                 </ScrollView>
             )
         }

@@ -33,7 +33,7 @@ class HomeScreen extends Component {
 
     render() {
         return (
-            <ImageBackground source={require('./imgs/dental.jpg')} style={{backgroundColor: '#FFFFFF',width: '100%', height: '40%', flex: 1, flexDirection: 'column', }}>
+            <ImageBackground source={require('./imgs/dentalnobg.png')} style={{ backgroundColor: '#F5F5F5', width: '100%', height: '40%', flex: 1, flexDirection: 'column', }}>
 
                 <View style={{ flex: 0.4 }}></View>
                 <View style={{ flex: 0.6 }}>
@@ -44,9 +44,10 @@ class HomeScreen extends Component {
                                 <TouchableOpacity style={styles.touchable} onPress={() => this.navigateMyQueueScreen()}>
                                     <View style={styles.view}>
                                     </View>
-                                    <Image
+                                    {/* <Image
                                         source={require('./imgs/Icon.png')}
-                                        style={styles.image} />
+                                        style={styles.image} /> */}
+                                    <Icon name='queue' size={50} color='#CC66BB' />
                                 </TouchableOpacity>
                                 <Text style={styles.textTouchable}>รับคิว</Text>
                             </View>
@@ -58,11 +59,12 @@ class HomeScreen extends Component {
                                 <TouchableOpacity style={styles.touchable} onPress={() => this.navigateMyQueueScreen()}>
                                     <View style={styles.view}>
                                     </View>
-                                    <Image
+                                    {/* <Image
                                         source={require('./imgs/Icon.png')}
-                                        style={styles.image} />
+                                        style={styles.image} /> */}
+                                    <Icon name='airplay' size={50} color='#AAFFAA' />
                                 </TouchableOpacity>
-                                <Text style={styles.textTouchable}>MyQueue</Text>
+                                <Text style={styles.textTouchable}>ติดตามคิว</Text>
                             </View>
 
                         </View>
@@ -74,11 +76,12 @@ class HomeScreen extends Component {
                                 <TouchableOpacity style={styles.touchable} onPress={() => this.navigateMyQueueScreen()}>
                                     <View style={styles.view}>
                                     </View>
-                                    <Image
+                                    {/* <Image
                                         source={require('./imgs/Icon.png')}
-                                        style={styles.image} />
+                                        style={styles.image} /> */}
+                                    <Icon name='description' size={50} color='#66CCFF' />
                                 </TouchableOpacity>
-                                <Text style={styles.textTouchable}>MyQueue</Text>
+                                <Text style={styles.textTouchable}>ขอเลื่อนวันนัด</Text>
                             </View>
 
                         </View>
@@ -88,11 +91,12 @@ class HomeScreen extends Component {
                                 <TouchableOpacity style={styles.touchable} onPress={() => this.navigateMyQueueScreen()}>
                                     <View style={styles.view}>
                                     </View>
-                                    <Image
+                                    {/* <Image
                                         source={require('./imgs/Icon.png')}
-                                        style={styles.image} />
+                                        style={styles.image} /> */}
+                                    <Icon name='album' size={50} color='#9966CC' />
                                 </TouchableOpacity>
-                                <Text style={styles.textTouchable}>MyQueue</Text>
+                                <Text style={styles.textTouchable}>ประวัตินัดหมาย</Text>
                             </View>
 
                         </View>
@@ -124,13 +128,15 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         marginTop: 10,
-        fontSize: 20
+        fontSize: 18
     },
     touchable: {
         alignItems: 'center',
         justifyContent: 'center',
-        height: 100,
-        width: 100,
+        height: 120,
+        width: 120,
+        borderRadius: 10,
+        backgroundColor: '#FFFFFF'
     },
     text: {
         fontSize: 18,

@@ -61,7 +61,7 @@ class SettingsScreen extends Component {
 
     render() {
         return (
-            <ScrollView >
+            <ScrollView style={{backgroundColor: '#F5F5F5'}}>
 
                     {<ListItem roundAvatar title={'แอเคาท์: ' + this.state.feedData.username} leftIcon={{ name: 'accessibility' }} />}
                     <View style={{ borderBottomColor: 'silver', borderBottomWidth: 0.5, }} />
