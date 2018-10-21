@@ -14,7 +14,6 @@ import {
 } from 'react-native';
 
 import QRCodeScanner from 'react-native-qrcode-scanner';
-import { View } from 'native-base';
 
 export default class ScanQRcodeScreen extends Component {
     static navigationOptions = {
@@ -41,7 +40,7 @@ export default class ScanQRcodeScreen extends Component {
         axios.put('https://immense-tundra-42908.herokuapp.com/api/v1/queue/booking', data, { headers: { 'x-access-token': token } })
             .then(response => {
                 const result = response.data
-                Alert.alert("รับคิวสำเร็จ หมายเลขคิวของคุณคือ " + result.room_usage.room_name + "-" + result.priority + result.queue_order) //เหลือใส่หมายเลขห้องหน้า-
+                Alert.alert("รับคิวสำเร็จ หมายเลขคิวของคุณคือ "+result.room_usage.room_name+"-"+result.priority+result.queue_order) //เหลือใส่หมายเลขห้องหน้า-
             })
             .catch(error => {
                 Alert.alert("catch")
@@ -55,22 +54,20 @@ export default class ScanQRcodeScreen extends Component {
 
     render() {
         return (
-            <View style={{ backgroundColor: '#F5F5F5' }}>
-                <QRCodeScanner
-                    ref={(node) => { this.scanner = node }}
-                    onRead={this.onSuccess.bind(this)}
-                    topContent={
-                        <Text style={styles.centerText}><Text style={styles.textBold}>
-                            สแกน QR Code ที่จอ Monitor เพื่อรับคิว!
+            <QRCodeScanner
+                ref={(node) => { this.scanner = node }}
+                onRead={this.onSuccess.bind(this)}
+                topContent={
+                    <Text style={styles.centerText}><Text style={styles.textBold}>
+                        สแกน QR Code ที่จอ Monitor เพื่อรับคิว!
                     </Text></Text>
-                    }
-                    bottomContent={
-                        <TouchableOpacity style={styles.buttonTouchable} onPress={this.scan}>
-                            <Text style={styles.buttonText}>สแกนซ้ำ</Text>
-                        </TouchableOpacity>
-                    }
-                />
-            </View>
+                }
+                bottomContent={
+                    <TouchableOpacity style={styles.buttonTouchable} onPress={this.scan}>
+                        <Text style={styles.buttonText}>สแกน QR Code ใหม่อีกรอบ!</Text>
+                    </TouchableOpacity>
+                }
+            />
         );
     }
 }
@@ -94,3 +91,4 @@ const styles = StyleSheet.create({
         padding: 16,
     },
 });
+// fix

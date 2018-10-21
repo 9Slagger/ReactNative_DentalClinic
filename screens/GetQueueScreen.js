@@ -6,7 +6,6 @@ import {
     AsyncStorage,
     TouchableHighlight,
     ScrollView,
-    Image,
 } from "react-native";
 import axios from 'axios'
 import { Card, ListItem, Button, Icon } from 'react-native-elements'
