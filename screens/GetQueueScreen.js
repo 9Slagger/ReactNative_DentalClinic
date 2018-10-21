@@ -59,7 +59,7 @@ class GetQueueScreen extends Component {
         var temp = queue.map(data => (
             <View key={data._id} >
                 <Card title="รายการนัดหมาย">
-                    {<ListItem roundAvatar title={'แพทย์: ' + data.doctor.name + ' ' + data.doctor.lastname} leftIcon={{ name: 'person' }} />}
+                    {<ListItem roundAvatar title={'แพทย์: ' + data.doctor.firstname + ' ' + data.doctor.lastname} leftIcon={{ name: 'person' }} />}
                     <View style={{ borderBottomColor: 'silver', borderBottomWidth: 0.5, }} />
                     {<ListItem roundAvatar title={'วันพบแพทย์: ' + data.appointment_date} leftIcon={{ name: 'alarm' }} />}
                     <View style={{ borderBottomColor: 'silver', borderBottomWidth: 0.5, }} />

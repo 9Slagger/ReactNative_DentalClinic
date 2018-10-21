@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import {
+    Alert,
     View,
     Text,
     StyleSheet,
@@ -33,6 +34,14 @@ class HomeScreen extends Component {
 
     navigateMonitorScreen() {
         this.props.navigation.navigate('Monitor')
+    }
+
+    navigatePetition() {
+        Alert.alert("Coming Soon")
+    }
+
+    navigateHistory() {
+        Alert.alert("Coming Soon")
     }
 
     render() {
@@ -77,7 +86,7 @@ class HomeScreen extends Component {
                         <View style={{ flex: 0.5 }}>
 
                             <View style={styles.viewTouchable}>
-                                <TouchableOpacity style={styles.touchable} onPress={() => this.navigateMyQueueScreen()}>
+                                <TouchableOpacity style={styles.touchable} onPress={() => this.navigatePetition()}>
                                     <View style={styles.view}>
                                     </View>
                                     {/* <Image
@@ -92,7 +101,7 @@ class HomeScreen extends Component {
                         <View style={{ flex: 0.5 }}>
 
                             <View style={styles.viewTouchable}>
-                                <TouchableOpacity style={styles.touchable} onPress={() => this.navigateMyQueueScreen()}>
+                                <TouchableOpacity style={styles.touchable} onPress={() => this.navigateHistory()}>
                                     <View style={styles.view}>
                                     </View>
                                     {/* <Image
