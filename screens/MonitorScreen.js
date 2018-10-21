@@ -93,50 +93,50 @@ export class MonitorScreen extends Component {
   render() {
     if (this.state.feed_data.length > 0) {
       return (
-        <View style={{ flex: 1, flexDirection: 'row' }}>
+        <View style={{ flex: 1, flexDirection: 'row', backgroundColor: '#F5F5F5' }}>
 
-          <View style={{ flex: 1, backgroundColor: 'red' }}>
-            <View style={{ flex: 1, backgroundColor: '#AAAAAA', justifyContent: 'center', alignItems: 'center' }}>
-              <Text>ห้องหมายเลข</Text>
+          <View style={{ flex: 1, backgroundColor: '#FFFFFF' }}>
+            <View style={{ flex: 1, backgroundColor: '#F5F5F5', justifyContent: 'center', alignItems: 'center', marginLeft: 10 }}>
+              <Text style={styles.text} >ห้องหมายเลข</Text>
             </View>
-            <View style={{ flex: 1, backgroundColor: '#CCCCCC', justifyContent: 'center', alignItems: 'center' }}>
-              <Text>1</Text>
+            <View style={{ flex: 1, backgroundColor: '#E5E5E5', justifyContent: 'center', alignItems: 'center', marginLeft: 10 }}>
+              <Text style={styles.text2} >1</Text>
             </View>
-            <View style={{ flex: 1, backgroundColor: '#DDDDDD', justifyContent: 'center', alignItems: 'center' }}>
-              <Text>2</Text>
+            <View style={{ flex: 1, backgroundColor: '#F5F5F5', justifyContent: 'center', alignItems: 'center', marginLeft: 10 }}>
+              <Text style={styles.text2} >2</Text>
             </View>
-            <View style={{ flex: 1, backgroundColor: '#FFFFFF', justifyContent: 'center', alignItems: 'center' }}>
-              <Text>3</Text>
+            <View style={{ flex: 1, backgroundColor: '#E5E5E5', justifyContent: 'center', alignItems: 'center', marginLeft: 10 }}>
+              <Text style={styles.text2} >3</Text>
             </View>
           </View>
 
-          <View style={{ flex: 1, backgroundColor: 'green' }}>
-            <View style={{ flex: 1, backgroundColor: '#AAAAAA', justifyContent: 'center', alignItems: 'center' }}>
-              <Text>คิวที่กำลังทำฟัน</Text>
+          <View style={{ flex: 1, backgroundColor: '#FFFFFF' }}>
+            <View style={{ flex: 1, backgroundColor: '#F5F5F5', justifyContent: 'center', alignItems: 'center'}}>
+              <Text style={styles.text} >คิวที่กำลังทำฟัน</Text>
             </View>
-            <View style={{ flex: 1, backgroundColor: '#CCCCCC', justifyContent: 'center', alignItems: 'center' }}>
-              <Text>{this.state.feed_data[0].room1.active.room_usage.room_name}{this.state.feed_data[0].room1.active.priority}-{this.state.feed_data[0].room1.active.queue_order}</Text>
+            <View style={{ flex: 1, backgroundColor: '#E5E5E5', justifyContent: 'center', alignItems: 'center' }}>
+              <Text style={styles.text2} >{this.state.feed_data[0].room1.active.room_usage.room_name}{this.state.feed_data[0].room1.active.priority}-{this.state.feed_data[0].room1.active.queue_order}</Text>
             </View>
-            <View style={{ flex: 1, backgroundColor: '#DDDDDD', justifyContent: 'center', alignItems: 'center' }}>
-              <Text>{this.state.feed_data[1].room2.active.room_usage.room_name}{this.state.feed_data[1].room2.active.priority}-{this.state.feed_data[1].room2.active.queue_order}</Text>
+            <View style={{ flex: 1, backgroundColor: '#F5F5F5', justifyContent: 'center', alignItems: 'center' }}>
+              <Text style={styles.text2} >{this.state.feed_data[1].room2.active.room_usage.room_name}{this.state.feed_data[1].room2.active.priority}-{this.state.feed_data[1].room2.active.queue_order}</Text>
             </View>
-            <View style={{ flex: 1, backgroundColor: '#FFFFFF', justifyContent: 'center', alignItems: 'center' }}>
-              <Text>{this.state.feed_data[2].room3.active.room_usage.room_name}{this.state.feed_data[2].room3.active.priority}-{this.state.feed_data[2].room3.active.queue_order}</Text>
+            <View style={{ flex: 1, backgroundColor: '#E5E5E5', justifyContent: 'center', alignItems: 'center' }}>
+              <Text style={styles.text2} >{this.state.feed_data[2].room3.active.room_usage.room_name}{this.state.feed_data[2].room3.active.priority}-{this.state.feed_data[2].room3.active.queue_order}</Text>
             </View>
           </View>
 
-          <View style={{ flex: 1, backgroundColor: 'blue' }}>
-            <View style={{ flex: 1, backgroundColor: '#AAAAAA', justifyContent: 'center', alignItems: 'center' }}>
-              <Text>จำนวนคิวที่รอทำฟัน</Text>
+          <View style={{ flex: 1, backgroundColor: '#FFFFFF' }}>
+            <View style={{ flex: 1, backgroundColor: '#F5F5F5', justifyContent: 'center', alignItems: 'center', marginRight:10 }}>
+              <Text style={styles.text} >จำนวนคิวที่รอทำฟัน</Text>
             </View>
-            <View style={{ flex: 1, backgroundColor: '#CCCCCC', justifyContent: 'center', alignItems: 'center' }}>
-              <Text>{this.state.number_of_room1}</Text>
+            <View style={{ flex: 1, backgroundColor: '#E5E5E5', justifyContent: 'center', alignItems: 'center', marginRight:10 }}>
+              <Text style={styles.text2} >{this.state.number_of_room1}</Text>
             </View>
-            <View style={{ flex: 1, backgroundColor: '#DDDDDD', justifyContent: 'center', alignItems: 'center' }}>
-              <Text>{this.state.number_of_room2}</Text>
+            <View style={{ flex: 1, backgroundColor: '#F5F5F5', justifyContent: 'center', alignItems: 'center', marginRight:10 }}>
+              <Text style={styles.text2} >{this.state.number_of_room2}</Text>
             </View>
-            <View style={{ flex: 1, backgroundColor: '#FFFFFF', justifyContent: 'center', alignItems: 'center' }}>
-              <Text>{this.state.number_of_room3}</Text>
+            <View style={{ flex: 1, backgroundColor: '#E5E5E5', justifyContent: 'center', alignItems: 'center', marginRight:10 }}>
+              <Text style={styles.text2} >{this.state.number_of_room3}</Text>
             </View>
           </View>
 
@@ -155,3 +155,15 @@ export class MonitorScreen extends Component {
 }
 
 export default MonitorScreen
+
+
+const styles = StyleSheet.create({
+  text: {
+    fontSize: 20,
+    textAlign: 'center'
+  },
+  text2: {
+    fontSize: 30,
+    textAlign: 'center'
+  }
+});

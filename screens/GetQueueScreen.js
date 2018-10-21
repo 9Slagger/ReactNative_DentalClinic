@@ -6,6 +6,7 @@ import {
     AsyncStorage,
     TouchableHighlight,
     ScrollView,
+    Image
 } from "react-native";
 import axios from 'axios'
 import { Card, ListItem, Button, Icon } from 'react-native-elements'
@@ -20,7 +21,8 @@ class GetQueueScreen extends Component {
         this.state = {
             test: { username: 'abc1', password: 'cba1' },
             queue: [],
-            token: ''
+            token: '',
+            loading: false
         }
         // this.ReservationQueue()
     }
@@ -34,7 +36,7 @@ class GetQueueScreen extends Component {
         axios.get(`https://immense-tundra-42908.herokuapp.com/api/v1/queue?customer_id=${id}&status=appointment`)
             .then(res => {
                 if (res.status === 200) {
-                    this.setState({ queue: res.data })
+                    this.setState({ queue: res.data, loading: true })
                     console.log(this.state.queue)
                 }
                 else {
@@ -84,17 +86,22 @@ class GetQueueScreen extends Component {
     }
 
     render() {
-        if (this.state.queue.length > 0) {
+        if (this.state.loading && this.state.queue.length > 0) {
             return (
                 <ScrollView style={{ backgroundColor: '#F5F5F5' }}>
                     <View>{this.lists(this.state.queue)}</View>
                 </ScrollView>
             )
         }
+        else if(this.state.loading && this.state.queue.length == 0){
+            <ScrollView style={{flex:1, backgroundColor: '#F5F5F5' }}>
+                <Text style={{flex:1,textAlign: 'center'}}>คุณไม่มีคิวที่นัดหมายไว้</Text>
+            </ScrollView>
+        }
         else {
             return (
                 <ScrollView style={{flex:1, backgroundColor: '#F5F5F5' }}>
-                    <Text style={{flex:1}}>คุณไม่มีคิวที่นัดหมายไว้</Text>
+                    
                 </ScrollView>
             )
         }
