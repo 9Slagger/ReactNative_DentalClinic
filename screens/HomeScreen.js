@@ -31,6 +31,10 @@ class HomeScreen extends Component {
         this.props.navigation.navigate('GetQueue')
     }
 
+    navigateMonitorScreen() {
+        this.props.navigation.navigate('Monitor')
+    }
+
     render() {
         return (
             <ImageBackground source={require('./imgs/dentalnobg.png')} style={{ backgroundColor: '#F5F5F5', width: '100%', height: '40%', flex: 1, flexDirection: 'column', }}>
@@ -56,7 +60,7 @@ class HomeScreen extends Component {
                         <View style={{ flex: 0.5 }}>
 
                             <View style={styles.viewTouchable}>
-                                <TouchableOpacity style={styles.touchable} onPress={() => this.navigateMyQueueScreen()}>
+                                <TouchableOpacity style={styles.touchable} onPress={() => this.navigateMonitorScreen()}>
                                     <View style={styles.view}>
                                     </View>
                                     {/* <Image
