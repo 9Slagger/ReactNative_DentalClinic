@@ -93,10 +93,12 @@ class GetQueueScreen extends Component {
                 </ScrollView>
             )
         }
-        else if(this.state.loading && this.state.queue.length == 0){
-            <ScrollView style={{flex:1, backgroundColor: '#F5F5F5' }}>
-                <Text style={{flex:1,textAlign: 'center'}}>คุณไม่มีคิวที่นัดหมายไว้</Text>
-            </ScrollView>
+        else if (this.state.loading && this.state.queue.length === 0) {
+            return (
+                <ScrollView style={{flex:1, backgroundColor: '#F5F5F5' }}>
+                    <Text>คุณไม่มีคิวที่จองไว้</Text>
+                </ScrollView>
+            )
         }
         else {
             return (
