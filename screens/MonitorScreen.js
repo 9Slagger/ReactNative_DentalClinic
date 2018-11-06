@@ -11,7 +11,8 @@ import {
   ImageBackground
 } from "react-native";
 import { Table, Row, Rows } from 'react-native-table-component';
-import { Card, ListItem, Button, Icon } from 'react-native-elements'
+import { Card, ListItem, Button } from 'react-native-elements'
+import Icon from 'react-native-vector-icons/MaterialIcons';
 import axios from 'axios'
 
 
@@ -26,13 +27,16 @@ class MonitorScreen extends Component {
       room: [],
       monitor_queue: [],
       loading: false,
-      tableHead: ['เลขห้อง', 'คิวปัจจุบัน', 'คิวทั้งหมด']
+      tableHead: ['เลขห้อง', 'คิวปัจจุบัน', 'คิวทั้งหมด'],
+      BookingQueueforme: [],
+      loadingQueueforme: false
     };
   }
 
   async componentDidMount() {
     this.timerID = await setInterval(() => this.feedRoom(), 1000);
     this.timerID1 = setInterval(() => this.feedQueueOrder(), 1000);
+    this.timerID2 = setInterval(() => this.feedBookingQueueforme(), 1000);
   }
 
   componentWillUnmount() {
@@ -66,18 +70,17 @@ class MonitorScreen extends Component {
 
         let monitor_queue = []
         room.forEach((data, index) => {
-          monitor_queue.push([ data.room_name, '-', 0  ])
+          monitor_queue.push([data.room_name, '-', 0])
         })
 
         monitor_queue.forEach((data_i, index_i) => {
-          result.forEach((data_j,index_j) => {
-            if(data_i[0] === data_j.room_usage.room_name) {
+          result.forEach((data_j, index_j) => {
+            if (data_i[0] === data_j.room_usage.room_name) {
               monitor_queue[index_i][2]++
             }
           })
         })
         this.feedQueueActive(monitor_queue)
-
       })
       .catch(error => {
         console.log(error);
@@ -112,24 +115,50 @@ class MonitorScreen extends Component {
       });
   }
 
-  render() {
-    if(this.state.loading) {
-    return (
-      <View style={styles.container}>
-        <Table borderStyle={{ borderWidth: 2, borderColor: '#c8e1ff' }}>
-          <Row data={this.state.tableHead} style={styles.head} textStyle={styles.text} />
-          <Rows data={this.state.monitor_queue} textStyle={styles.text} />
-        </Table>
-      </View>
-    )
+  async feedBookingQueueforme() {
+    const id = await AsyncStorage.getItem("id")
+    axios.get(`https://immense-tundra-42908.herokuapp.com/api/v1/queue?customer_id=${id}&status=booking_queue`)
+      .then(res => {
+        const result = res.data
+        this.setState({ BookingQueueforme: result, loadingQueueforme: true })
+      })
+      .catch(error => {
+        console.log(error)
+      })
   }
-  else {
-    return (
-      <View>
 
-      </View>
-    )
-  }
+  render() {
+    const data = this.state.BookingQueueforme
+    if (this.state.loading && this.state.loadingQueueforme) {
+      return (
+        <ScrollView style={styles.container}>
+          <ListItem roundAvatar title={`หมายเลขคิวปัจจุบันของคุณคือ ${this.state.BookingQueueforme[0].room_usage.room_name}${this.state.BookingQueueforme[0].priority}-${this.state.BookingQueueforme[0].queue_order}`} leftIcon={{ name: 'history' }} />
+          <View style={{ borderBottomColor: 'silver', borderBottomWidth: 0.5, }} />
+
+          <Table borderStyle={{ borderWidth: 2, borderColor: '#c8e1ff' }}>
+            <Row data={this.state.tableHead} style={styles.head} textStyle={styles.text} />
+            <Rows data={this.state.monitor_queue} textStyle={styles.text} />
+          </Table>
+        </ScrollView>
+      )
+    }
+    else if (this.state.loading) {
+      return (
+        <ScrollView style={styles.container}>
+          <Table borderStyle={{ borderWidth: 2, borderColor: '#c8e1ff' }}>
+            <Row data={this.state.tableHead} style={styles.head} textStyle={styles.text} />
+            <Rows data={this.state.monitor_queue} textStyle={styles.text} />
+          </Table>
+        </ScrollView>
+      )
+    }
+    else {
+      return (
+        <View>
+
+        </View>
+      )
+    }
   }
 }
 
