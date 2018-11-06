@@ -10,55 +10,49 @@ import {
   Image,
   ImageBackground
 } from "react-native";
+import { Table, Row, Rows } from 'react-native-table-component';
 import { Card, ListItem, Button, Icon } from 'react-native-elements'
 import axios from 'axios'
 
-export class MonitorScreen extends Component {
+
+
+class MonitorScreen extends Component {
   static navigationOptions = {
     title: "Monitor"
   }
-
-  constructor(prop) {
-    super(prop)
+  constructor(props) {
+    super(props);
     this.state = {
+      room: [],
+      monitor_queue: [],
       loading: false,
-      feed_data: [],
-      feed_queue_booking: [],
-      feed_queue_active: [],
-      number_of_room1: '',
-      number_of_room2: '',
-      number_of_room3: ''
+      tableHead: ['เลขห้อง', 'คิวปัจจุบัน', 'คิวทั้งหมด']
     };
   }
 
-  componentDidMount() {
-    this.timerID = setInterval(() => this.feed(), 1000);
-    this.timerID2 = setInterval(() => this.feed2(), 1000);
+  async componentDidMount() {
+    this.timerID = await setInterval(() => this.feedRoom(), 1000);
+    this.timerID1 = setInterval(() => this.feedQueueOrder(), 1000);
   }
 
   componentWillUnmount() {
     clearInterval(this.timerID);
-    clearInterval(this.timerID2);
-    clearInterval(this.timerID3);
+    clearInterval(this.timerID1);
   }
 
-  feed() {
-    let time = new Date()
-    let day = time.getDate()
-    let mount = time.getMonth() + 1
-    let year = time.getFullYear()
-    axios.get('https://immense-tundra-42908.herokuapp.com/api/v1/monitor/queue?day=' + day + '&month=' + mount + '&year=' + year)
+  feedRoom() {
+    axios.get('https://immense-tundra-42908.herokuapp.com/api/v1/room')
       .then(response => {
         const result = response.data
-        this.setState({ feed_data: result, loading: true })
-        // console.log(this.state.feed_data)
+        result.sort((a, b) => parseFloat(a.room_name) - parseFloat(b.room_name));
+        this.setState({ room: result })
       })
       .catch(error => {
         console.log(error);
       });
   }
 
-  feed2() {
+  feedQueueOrder() {
     let time = new Date()
     let day = time.getDate()
     let mount = time.getMonth() + 1
@@ -67,23 +61,51 @@ export class MonitorScreen extends Component {
     axios.get('https://immense-tundra-42908.herokuapp.com/api/v1/queue/booking?day=' + day + '&month=' + mount + '&year=' + year)
       .then(response => {
         const result = response.data
-        this.setState({ feed_queue_booking: result })
-        const temp1 = result.filter((member) => {
-          return member.room_usage.room_name == 1
+        const room = this.state.room
+        // console.log(result)
+
+        let monitor_queue = []
+        room.forEach((data, index) => {
+          monitor_queue.push([ data.room_name, '-', 0  ])
         })
-        const temp2 = result.filter((member) => {
-          return member.room_usage.room_name == 2
+
+        monitor_queue.forEach((data_i, index_i) => {
+          result.forEach((data_j,index_j) => {
+            if(data_i[0] === data_j.room_usage.room_name) {
+              monitor_queue[index_i][2]++
+            }
+          })
         })
-        const temp3 = result.filter((member) => {
-          return member.room_usage.room_name == 3
+        this.feedQueueActive(monitor_queue)
+
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  }
+
+  feedQueueActive(monitor_queue) {
+    let time = new Date()
+    let day = time.getDate()
+    let mount = time.getMonth() + 1
+    let year = time.getFullYear()
+    // console.log(day)
+    axios.get('https://immense-tundra-42908.herokuapp.com/api/v1/queue/active?day=' + day + '&month=' + mount + '&year=' + year)
+      .then(response => {
+        const result = response.data
+
+        monitor_queue.forEach((data_i, index_i) => {
+          result.forEach((data_j, index_j) => {
+            if (data_i[0] === data_j.room_usage.room_name) {
+              let data_temp = result[index_j].room_usage.room_name + result[index_j].priority + "-" + result[index_j].queue_order
+              monitor_queue[index_i][1] = data_temp
+            }
+          })
         })
-        this.setState({
-          number_of_room1: temp1.length,
-          number_of_room2: temp2.length,
-          number_of_room3: temp3.length,
-          loading: true
-        })
-        console.log(temp1.length + " " + temp2.length + " " + temp3.length)
+
+        this.setState({ monitor_queue: monitor_queue, loading: true })
+        console.log(this.state.monitor_queue)
+
       })
       .catch(error => {
         console.log(error);
@@ -91,73 +113,34 @@ export class MonitorScreen extends Component {
   }
 
   render() {
-    if (this.state.feed_data.length > 0) {
-      return (
-        <View style={{ flex: 1, flexDirection: 'row', backgroundColor: '#F5F5F5' }}>
-
-          <View style={{ flex: 1, backgroundColor: '#FFFFFF' }}>
-            <View style={{ flex: 1, backgroundColor: '#F5F5F5', justifyContent: 'center', alignItems: 'center', marginLeft: 10 }}>
-              <Text style={styles.text} >ห้องหมายเลข</Text>
-            </View>
-            <View style={{ flex: 1, backgroundColor: '#E5E5E5', justifyContent: 'center', alignItems: 'center', marginLeft: 10 }}>
-              <Text style={styles.text2} >1</Text>
-            </View>
-            <View style={{ flex: 1, backgroundColor: '#F5F5F5', justifyContent: 'center', alignItems: 'center', marginLeft: 10 }}>
-              <Text style={styles.text2} >2</Text>
-            </View>
-            <View style={{ flex: 1, backgroundColor: '#E5E5E5', justifyContent: 'center', alignItems: 'center', marginLeft: 10 }}>
-              <Text style={styles.text2} >3</Text>
-            </View>
-          </View>
-
-          <View style={{ flex: 1, backgroundColor: '#FFFFFF' }}>
-            <View style={{ flex: 1, backgroundColor: '#F5F5F5', justifyContent: 'center', alignItems: 'center'}}>
-              <Text style={styles.text} >คิวที่กำลังทำฟัน</Text>
-            </View>
-            <View style={{ flex: 1, backgroundColor: '#E5E5E5', justifyContent: 'center', alignItems: 'center' }}>
-              <Text style={styles.text2} >{this.state.feed_data[0].room1.active.room_usage.room_name}{this.state.feed_data[0].room1.active.priority}-{this.state.feed_data[0].room1.active.queue_order}</Text>
-            </View>
-            <View style={{ flex: 1, backgroundColor: '#F5F5F5', justifyContent: 'center', alignItems: 'center' }}>
-              <Text style={styles.text2} >{this.state.feed_data[1].room2.active.room_usage.room_name}{this.state.feed_data[1].room2.active.priority}-{this.state.feed_data[1].room2.active.queue_order}</Text>
-            </View>
-            <View style={{ flex: 1, backgroundColor: '#E5E5E5', justifyContent: 'center', alignItems: 'center' }}>
-              <Text style={styles.text2} >{this.state.feed_data[2].room3.active.room_usage.room_name}{this.state.feed_data[2].room3.active.priority}-{this.state.feed_data[2].room3.active.queue_order}</Text>
-            </View>
-          </View>
-
-          <View style={{ flex: 1, backgroundColor: '#FFFFFF' }}>
-            <View style={{ flex: 1, backgroundColor: '#F5F5F5', justifyContent: 'center', alignItems: 'center', marginRight:10 }}>
-              <Text style={styles.text} >จำนวนคิวที่รอทำฟัน</Text>
-            </View>
-            <View style={{ flex: 1, backgroundColor: '#E5E5E5', justifyContent: 'center', alignItems: 'center', marginRight:10 }}>
-              <Text style={styles.text2} >{this.state.number_of_room1}</Text>
-            </View>
-            <View style={{ flex: 1, backgroundColor: '#F5F5F5', justifyContent: 'center', alignItems: 'center', marginRight:10 }}>
-              <Text style={styles.text2} >{this.state.number_of_room2}</Text>
-            </View>
-            <View style={{ flex: 1, backgroundColor: '#E5E5E5', justifyContent: 'center', alignItems: 'center', marginRight:10 }}>
-              <Text style={styles.text2} >{this.state.number_of_room3}</Text>
-            </View>
-          </View>
-
-        </View>
-      )
-    }
-    else {
-      return (
-        <View>
-
-        </View>
-      )
-    }
+    if(this.state.loading) {
+    return (
+      <View style={styles.container}>
+        <Table borderStyle={{ borderWidth: 2, borderColor: '#c8e1ff' }}>
+          <Row data={this.state.tableHead} style={styles.head} textStyle={styles.text} />
+          <Rows data={this.state.monitor_queue} textStyle={styles.text} />
+        </Table>
+      </View>
+    )
   }
+  else {
+    return (
+      <View>
 
+      </View>
+    )
+  }
+  }
 }
+
 
 export default MonitorScreen
 
 
 const styles = StyleSheet.create({
+  container: { flex: 1, padding: 16, paddingTop: 30, backgroundColor: '#fff' },
+  head: { height: 40, backgroundColor: '#f1f8ff' },
+  text: { margin: 6 },
   text: {
     fontSize: 20,
     textAlign: 'center'
