@@ -21,8 +21,8 @@ class SignInScreen extends Component {
         this.state = {
             isLoading: true,
             dataSource: [],
-            username: "",
-            password: ""
+            username: undefined,
+            password: undefined
         }
         this.validAuthen()
     }
@@ -41,28 +41,28 @@ class SignInScreen extends Component {
     async onLoginPressed() {
         const { username, password } = this.state
         const data = { username: username, password: password }
-
+        console.log(data)
 
         axios.post('https://immense-tundra-42908.herokuapp.com/api/v1/customer/login', data)
             .then(async response => {
+                console.log(response)
                 const result = response.data
-                if (result.result == "Customer Login success") {
+                const status = response.status
+                if (status === 200) {
 
                     // save token
                     await AsyncStorage.setItem("token", result.token)
                     await AsyncStorage.setItem("id", result.id)
 
                     // show successful alert
-                    Alert.alert("Login Successful", "",
-                        [
-                            { text: 'OK', onPress: () => this.signIn() },
-                        ])
+                    this.signIn()
                 } else {
-                    Alert.alert("Login Failed")
+                    Alert.alert("Login ล้มเหลวกรุณาเช็ค Username หรือ Password")
                 }
             })
             .catch(error => {
                 console.log(error);
+                Alert.alert("Login ล้มเหลวกรุณาเช็ค Username หรือ Password")
             });
 
     }

@@ -46,7 +46,7 @@ class HomeScreen extends Component {
 
     render() {
         return (
-            <ImageBackground source={require('./imgs/dentalnobg.png')} style={{ backgroundColor: '#F5F5F5', width: '100%', height: '40%', flex: 1, flexDirection: 'column', }}>
+            <ImageBackground source={require('./imgs/BG.jpg')} style={{ backgroundColor: '#F5F5F5', width: '100%', height: '100%', flex: 1, flexDirection: 'column', }}>
 
                 <View style={{ flex: 0.4 }}></View>
                 <View style={{ flex: 0.6 }}>
