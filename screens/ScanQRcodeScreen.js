@@ -21,15 +21,19 @@ export default class ScanQRcodeScreen extends Component {
     }
 
     onSuccess(e) {
-        this.receiveQ()
-        // Alert.alert(
-        //     'Alert Title',
-        //     e.data,
-        //     [
-        //         { text: 'Close', onPress: () => this.receiveQ(), style: 'cancel' },
-        //     ],
-        //     { cancelable: false }
-        // )
+        if (e.data === "https://smart-dental-clinic.herokuapp.com/") {
+            this.receiveQ()
+        }
+        else {
+            Alert.alert(
+                'QR Code ผิด!',
+                e.data,
+                [
+                    { text: 'OK!', onPress: () => this.scan(), style: 'cancel' },
+                ],
+                { cancelable: false }
+            )
+        }
     }
 
     async receiveQ() {
@@ -40,10 +44,11 @@ export default class ScanQRcodeScreen extends Component {
         axios.put('https://immense-tundra-42908.herokuapp.com/api/v1/queue/booking', data, { headers: { 'x-access-token': token } })
             .then(response => {
                 const result = response.data
-                Alert.alert("รับคิวสำเร็จ หมายเลขคิวของคุณคือ "+result.room_usage.room_name+"-"+result.priority+result.queue_order) //เหลือใส่หมายเลขห้องหน้า-
+                Alert.alert("รับคิวสำเร็จ หมายเลขคิวของคุณคือ " + result.room_usage.room_name + result.priority + "-" + result.queue_order)
             })
             .catch(error => {
-                Alert.alert("catch")
+                Alert.alert("รับคิวล้มเหลว!")
+                this.scan()
             });
     }
 
@@ -91,4 +96,3 @@ const styles = StyleSheet.create({
         padding: 16,
     },
 });
-// fix
