@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import {
+    Alert,
     View,
     Text,
     StyleSheet,
@@ -96,7 +97,7 @@ class GetQueueScreen extends Component {
         else if (this.state.loading && this.state.queue.length === 0) {
             return (
                 <ScrollView style={{flex:1, backgroundColor: '#F5F5F5' }}>
-                    <Text>คุณไม่มีคิวที่จองไว้</Text>
+                    {Alert.alert("คุณไม่มีคิวที่จองไว้!")}
                 </ScrollView>
             )
         }
