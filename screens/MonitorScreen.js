@@ -129,10 +129,22 @@ class MonitorScreen extends Component {
 
   render() {
     const data = this.state.BookingQueueforme
-    if (this.state.loading && this.state.loadingQueueforme) {
+    if (this.state.loading && this.state.loadingQueueforme && this.state.BookingQueueforme.length > 0) {
       return (
         <ScrollView style={styles.container}>
           <ListItem roundAvatar title={`หมายเลขคิวปัจจุบันของคุณคือ ${this.state.BookingQueueforme[0].room_usage.room_name}${this.state.BookingQueueforme[0].priority}-${this.state.BookingQueueforme[0].queue_order}`} leftIcon={{ name: 'history' }} />
+          <View style={{ borderBottomColor: 'silver', borderBottomWidth: 0.5, }} />
+
+          <Table borderStyle={{ borderWidth: 2, borderColor: '#c8e1ff' }}>
+            <Row data={this.state.tableHead} style={styles.head} textStyle={styles.text} />
+            <Rows data={this.state.monitor_queue} textStyle={styles.text} />
+          </Table>
+        </ScrollView>
+      )
+    }
+    else if(this.state.loading && this.state.loadingQueueforme && this.state.BookingQueueforme.length === 0) {
+      return (
+        <ScrollView style={styles.container}>
           <View style={{ borderBottomColor: 'silver', borderBottomWidth: 0.5, }} />
 
           <Table borderStyle={{ borderWidth: 2, borderColor: '#c8e1ff' }}>

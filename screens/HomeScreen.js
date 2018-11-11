@@ -41,7 +41,7 @@ class HomeScreen extends Component {
     }
 
     navigateHistory() {
-        Alert.alert("Coming Soon")
+        this.props.navigation.navigate('History')
     }
 
     render() {

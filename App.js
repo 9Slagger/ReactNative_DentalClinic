@@ -7,6 +7,7 @@ import ScanQRcodeScreen from './screens/ScanQRcodeScreen'
 import AuthLoadingScreen from './screens/AuthLoadingScreen'
 import GetQueueScreen from './screens/GetQueueScreen'
 import MonitorScreen from './screens/MonitorScreen'
+import HistoryScreen from './screens/HistoryScreen'
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { createSwitchNavigator, createStackNavigator, createDrawerNavigator, createBottomTabNavigator } from 'react-navigation'
 
@@ -20,6 +21,7 @@ var HomeStack = createStackNavigator({
   GetQueue: { screen: GetQueueScreen },
   ScanQRcode: { screen: ScanQRcodeScreen },
   Monitor: {screen: MonitorScreen },
+  History: {screen: HistoryScreen }
 }, { initialRouteName: 'Home' })
 
 var SettingStack = createStackNavigator({
